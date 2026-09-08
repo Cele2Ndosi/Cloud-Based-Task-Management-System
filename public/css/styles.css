@@ -1,0 +1,25 @@
+/* --- append to the end of your existing styles.css --- */
+
+.status-banner {
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.status-banner.info {
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.status-banner.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Disabled state while a request is in flight — prevents double-submits */
+button:disabled,
+input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
