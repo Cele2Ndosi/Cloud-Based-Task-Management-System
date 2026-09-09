@@ -1,0 +1,46 @@
+/**
+ * Cloud Firestore Security Rules
+ *
+ * Data model: users/{userId}/tasks/{taskId}
+ *
+ * Rule of thumb: a user may only read/write documents inside their own
+ * users/{userId} subtree, AND only if that document looks like a valid
+ * task. This mirrors utils/validation.js on the client — client-side
+ * validation is for UX (instant feedback), these rules are the actual
+ * security boundary, since a client-side check can always be bypassed
+ * by calling Firestore directly.
+ */
+rules_version = '2';
+
+service cloud.firestore {
+    match /databases/{database}/documents {
+
+        match /users/{userId}/tasks/{taskId} {
+
+            // Only the owner may read their own tasks.
+            allow read: if request.auth != null
+                        && request.auth.uid == userId;
+
+            // Creating a task: must be signed in as the owner, and the
+            // document must have the shape the app expects.
+            allow create: if request.auth != null
+                          && request.auth.uid == userId
+                          && request.resource.data.title is string
+                          && request.resource.data.title.size() > 0
+                          && request.resource.data.title.size() <= 200
+                          && request.resource.data.completed == false;
+
+            // Updating a task: owner only, and only the "completed"
+            // field may change (title/createdAt are immutable once set).
+            allow update: if request.auth != null
+                          && request.auth.uid == userId
+                          && request.resource.data.title == resource.data.title
+                          && request.resource.data.createdAt == resource.data.createdAt
+                          && request.resource.data.completed is bool;
+
+            // Deleting a task: owner only.
+            allow delete: if request.auth != null
+                          && request.auth.uid == userId;
+        }
+    }
+}
