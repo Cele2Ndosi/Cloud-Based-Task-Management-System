@@ -1,0 +1,24 @@
+{
+  "name": "cloud-based-task-management-system",
+  "version": "1.0.0",
+  "description": "WTC-SL5HBBRL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cele2Ndosi/Cloud-Based-Task-Management-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Cele2Ndosi/Cloud-Based-Task-Management-System/issues"
+  },
+  "homepage": "https://github.com/Cele2Ndosi/Cloud-Based-Task-Management-System#readme",
+  "dependencies": {
+    "firebase": "^12.18.0"
+  }
+}
