@@ -11,6 +11,10 @@
  *
  * No DOM access and no Firestore task queries belong here.
  */
+import {
+    EmailAuthProvider,
+    linkWithCredential
+} from "firebase/auth";
 
 import {
     signInAnonymously,
@@ -67,3 +71,19 @@ function getCurrentUserId() {
 }
 
 export { ensureSignedIn, getCurrentUserId };
+
+/**
+ * Upgrades the current anonymous session to a permanent
+ * email/password account. The uid does not change, so all existing
+ * tasks under users/{uid}/tasks remain accessible with no migration.
+ *
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<void>}
+ */
+async function upgradeToEmailAccount(email, password) {
+    const credential = EmailAuthProvider.credential(email, password);
+    await linkWithCredential(auth.currentUser, credential);
+}
+
+export { ensureSignedIn, getCurrentUserId, upgradeToEmailAccount };
