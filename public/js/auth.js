@@ -19,7 +19,7 @@ import {
 import {
     signInAnonymously,
     onAuthStateChanged
-} from "firebase/auth";
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import { auth } from "./firebase.js";
 
