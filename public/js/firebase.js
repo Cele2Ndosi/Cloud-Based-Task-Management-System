@@ -13,8 +13,11 @@
  */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+    initializeFirestore,
+    persistentLocalCache
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 /**
  * Firebase project configuration.
@@ -33,8 +36,10 @@ const firebaseConfig = {
 /** The initialized Firebase app instance. */
 const app = initializeApp(firebaseConfig);
 
-/** Cloud Firestore database instance, used only by taskService.js. */
-const db = getFirestore(app);
+// After:
+const db = initializeFirestore(app, {
+    localCache: persistentLocalCache()
+});
 
 /** Firebase Auth instance, used only by auth.js. */
 const auth = getAuth(app);
