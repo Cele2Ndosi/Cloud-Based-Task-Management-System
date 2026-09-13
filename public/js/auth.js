@@ -14,7 +14,7 @@
 import {
     EmailAuthProvider,
     linkWithCredential
-} from "firebase/auth";
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
     signInAnonymously,
@@ -69,8 +69,6 @@ function getCurrentUserId() {
 
     return auth.currentUser.uid;
 }
-
-export { ensureSignedIn, getCurrentUserId };
 
 /**
  * Upgrades the current anonymous session to a permanent
